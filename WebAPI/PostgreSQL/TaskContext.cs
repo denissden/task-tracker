@@ -5,7 +5,8 @@ namespace WebAPI.PostgreSQL
 {
     public class TaskContext : DbContext
     {   
-        public DbSet<PostgreSQL.Task> Tasks {get; set;}
+        public DbSet<Task> Tasks {get; set;}
+        public DbSet<User> Users {get; set;}
 
         public TaskContext()
         {
@@ -13,6 +14,7 @@ namespace WebAPI.PostgreSQL
 
         public TaskContext(DbContextOptions<TaskContext> options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating( ModelBuilder modelBuilder){

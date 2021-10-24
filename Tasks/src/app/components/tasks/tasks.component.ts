@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Task } from 'src/app/Task';
+import { Task } from '../../Task';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
@@ -21,6 +21,31 @@ export class TasksComponent implements OnInit {
       {
         this.tasks = data;
       });
+  }
+
+  deteleTask(task: Task){
+    this.service
+    .deleteTask(task)
+    .subscribe(() => 
+    (
+      this.tasks = this.tasks.filter(t => t.id !== task.id)
+    ));
+  }
+
+  toggleReminder(task: Task){
+    task.reminder = !task.reminder;
+    this.service
+    .updateTask(task)
+    .subscribe();
+  }
+
+  addTask(task: Task){
+    this.service
+    .addTask(task)
+    .subscribe(task => 
+    (
+      this.tasks.push(task)
+    ));
   }
 
 }
